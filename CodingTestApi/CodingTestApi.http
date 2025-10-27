@@ -1,0 +1,62 @@
+@CodingTestApi_HostAddress = http://localhost:5000
+
+### Get all products (V1)
+GET {{CodingTestApi_HostAddress}}/api/v1/products
+Accept: application/json
+
+###
+
+### Get all products (V2 - Enhanced Response)
+GET {{CodingTestApi_HostAddress}}/api/v2/products
+Accept: application/json
+
+###
+
+### Get product by ID (V1)
+GET {{CodingTestApi_HostAddress}}/api/v1/products/1
+Accept: application/json
+
+###
+
+### Get product by ID (V2)
+GET {{CodingTestApi_HostAddress}}/api/v2/products/1
+Accept: application/json
+
+###
+
+### Create a new product (V1)
+POST {{CodingTestApi_HostAddress}}/api/v1/products
+Content-Type: application/json
+
+{
+  "name": "Monitor",
+  "price": 299.99,
+  "description": "4K Ultra HD Monitor"
+}
+
+###
+
+### Create a new product (V2 - with enhanced validation)
+POST {{CodingTestApi_HostAddress}}/api/v2/products
+Content-Type: application/json
+
+{
+  "name": "Headphones",
+  "price": 149.99,
+  "description": "Wireless noise-cancelling headphones"
+}
+
+###
+
+### Get application info (Configuration from appsettings.json)
+GET {{CodingTestApi_HostAddress}}/api/v1/configuration/info
+Accept: application/json
+
+###
+
+### Get all configuration settings (Demonstrates reading from appsettings.json)
+GET {{CodingTestApi_HostAddress}}/api/v1/configuration/settings
+Accept: application/json
+
+###
+
