@@ -37,10 +37,7 @@ builder.Services.Configure<DatabaseSettings>(
 // ===================================================================
 // Register services with different lifetimes:
 
-// Get the singleton instance IOptions<ApplicationSettings>
-
 // Scoped: Created once per request
-
 builder.Services.AddScoped<IProductService, HardwareProductService>();
 
 // Add controllers
