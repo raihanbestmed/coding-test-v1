@@ -8,17 +8,17 @@ namespace CodingTestApi.Services;
 /// Product Service implementation - demonstrates Dependency Injection
 /// Also demonstrates injecting IOptions for configuration
 /// </summary>
-public class ProductService : IProductService
+public class HardwareProductService : IProductService
 {
-    private readonly ILogger<ProductService> _logger;
+    private readonly ILogger<HardwareProductService> _logger;
     private readonly ApplicationSettings _settings;
     private static readonly List<Product> _products = new();
     private static int _nextId = 1;
 
-    public ProductService(ILogger<ProductService> logger, IOptions<ApplicationSettings> settings)
+    public HardwareProductService(ILogger<HardwareProductService> logger, ApplicationSettings settings)
     {
         _logger = logger;
-        _settings = settings.Value;
+        _settings = settings;
 
         // Initialize with sample data if empty
         if (!_products.Any())
@@ -37,16 +37,6 @@ public class ProductService : IProductService
     {
         _logger.LogInformation("Getting product with ID: {ProductId}", id);
         var product = _products.FirstOrDefault(p => p.Id == id);
-        return Task.FromResult(product);
-    }
-
-    public Task<Product> CreateProductAsync(Product product)
-    {
-        product.Id = _nextId++;
-        product.CreatedAt = DateTime.UtcNow;
-        _products.Add(product);
-        
-        _logger.LogInformation("Created new product with ID: {ProductId}", product.Id);
         return Task.FromResult(product);
     }
 

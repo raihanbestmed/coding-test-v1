@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CodingTestApi.Controllers.V1;
 
 /// <summary>
-/// Products API Version 1.0
-/// Demonstrates API Versioning and Dependency Injection
+/// Products API
 /// </summary>
 [ApiController]
 [ApiVersion("1.0")]
@@ -17,7 +16,6 @@ public class ProductsController : ControllerBase
     private readonly IProductService _productService;
     private readonly ILogger<ProductsController> _logger;
 
-    // Constructor injection - demonstrates Dependency Injection
     public ProductsController(IProductService productService, ILogger<ProductsController> logger)
     {
         _productService = productService;
@@ -31,7 +29,6 @@ public class ProductsController : ControllerBase
     [ProducesResponseType(typeof(IEnumerable<Product>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<Product>>> GetAll()
     {
-        _logger.LogInformation("V1: Getting all products");
         var products = await _productService.GetAllProductsAsync();
         return Ok(products);
     }
@@ -53,27 +50,5 @@ public class ProductsController : ControllerBase
         }
         
         return Ok(product);
-    }
-
-    /// <summary>
-    /// Create a new product
-    /// </summary>
-    [HttpPost]
-    [ProducesResponseType(typeof(Product), StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Product>> Create([FromBody] Product product)
-    {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        _logger.LogInformation("V1: Creating new product");
-        var createdProduct = await _productService.CreateProductAsync(product);
-        
-        return CreatedAtAction(
-            nameof(GetById),
-            new { id = createdProduct.Id, version = "1.0" },
-            createdProduct);
     }
 }
