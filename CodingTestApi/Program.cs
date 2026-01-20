@@ -38,7 +38,8 @@ builder.Services.Configure<DatabaseSettings>(
 // Register services with different lifetimes:
 
 // Scoped: Created once per request
-builder.Services.AddScoped<IProductService, HardwareProductService>();
+//builder.Services.AddScoped<IProductService, HardwareProductService>();
+builder.Services.AddScoped<IProductService, SoftwareProductService>();
 
 // Add controllers
 builder.Services.AddControllers();
